@@ -37,10 +37,16 @@ const roleSchema = new mongoose.Schema({
   role: String
 });
 
+const eventSchema = new mongoose.Schema({
+  title: String,
+  body: String
+})
+
 userSchema.plugin(passportLocalMongoose);
 
 const User = new mongoose.model("User", userSchema);
 const Role = new mongoose.model("Role", roleSchema);
+const Event = new mongoose.model("Event", eventSchema);
 
 passport.use(User.createStrategy());
 
@@ -118,7 +124,9 @@ app.get("/compose", function(req, res){
     Role.findOne({email: req.user.username}, function(err, foundRole){
       if(foundRole.role === "admin"){
         console.log("welcome admin");
-        res.redirect("/secrets");
+        Event.find({}, function(err, foundEvents){
+          res.render("compose",{events: foundEvents});
+        });
       } else {
         console.log("fuck off user");
         res.redirect("/");
@@ -127,6 +135,20 @@ app.get("/compose", function(req, res){
   } else {
     res.redirect("/login");
   }
+});
+
+app.post("/compose", function(req, res){
+  const newEvent = new Event({
+    title: req.body.title,
+    body: req.body.body
+  });
+  newEvent.save(function(err){
+    if(err){
+      console.log(err);
+    } else {
+      res.redirect("/compose")
+    }
+  });
 });
 
 app.listen(process.env.LOCALHOST, function(){
