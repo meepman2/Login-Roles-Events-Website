@@ -38,8 +38,8 @@ const roleSchema = new mongoose.Schema({
 });
 
 const eventSchema = new mongoose.Schema({
-  title: String,
-  body: String
+  name: String,
+  events: [{title: String, body: String}]
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -84,8 +84,8 @@ app.get("/register", function(req, res){
 
 app.get("/events", function(req, res){
   if (req.isAuthenticated()){
-    Event.find({}, function(err, foundEvents){
-      res.render("events",{events: foundEvents});
+    Event.find({}, function(err, foundEvent){
+      res.render("events",{events: foundEvent.events});
     });
   } else {
     res.redirect("/login");
@@ -125,8 +125,15 @@ app.get("/compose", function(req, res){
   if (req.isAuthenticated()){
     Role.findOne({email: req.user.username}, function(err, foundRole){
       if(foundRole.role === "admin"){
-        Event.find({}, function(err, foundEvents){
-          res.render("compose",{events: foundEvents});
+        Event.find({}, function(err, foundEvent){
+          if(foundEvent.length === 0){
+            const list = new Event({
+              name: "adminPosts",
+              events:[{title:"Rules", body:"Only Admins can add and delete posts"}]
+            });
+            list.save();
+          }
+          res.render("compose",{events: foundEvent.events});
         });
       } else {
         console.log("fuck off user");
@@ -139,15 +146,22 @@ app.get("/compose", function(req, res){
 });
 
 app.post("/compose", function(req, res){
-  const newEvent = new Event({
+  const newPost = {
     title: req.body.title,
     body: req.body.body
-  });
-  newEvent.save(function(err){
+  };
+  Event.findOne({name: "adminPosts"}, function(err, foundEvents){
     if(err){
       console.log(err);
     } else {
-      res.redirect("/compose");
+      foundEvents.events.push(newPost);
+      foundEvents.save(function(err){
+        if(err){
+          console.log(err);
+        } else {
+          res.redirect("/compose");
+        }
+      });
     }
   });
 });
