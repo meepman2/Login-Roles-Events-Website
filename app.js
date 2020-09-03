@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(session({
-  secret: 'littlesecret.',
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false,
 }));
@@ -129,6 +129,6 @@ app.get("/compose", function(req, res){
   }
 });
 
-app.listen(3000, function(){
+app.listen(process.env.LOCALHOST, function(){
   console.log("server is a go");
 });
