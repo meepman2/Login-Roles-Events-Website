@@ -40,7 +40,7 @@ const roleSchema = new mongoose.Schema({
 const eventSchema = new mongoose.Schema({
   title: String,
   body: String
-})
+});
 
 userSchema.plugin(passportLocalMongoose);
 
@@ -73,7 +73,7 @@ app.post("/login", function(req, res){
       console.log(err);
     } else {
       passport.authenticate("local")(req, res, function(){
-        res.redirect("/secrets");
+        res.redirect("/events");
   });
 }});
 });
@@ -108,7 +108,7 @@ app.post("/register", function(req, res){
           console.log(err);
         } else {
           passport.authenticate("local")(req, res, function(){
-            res.redirect("/secrets");
+            res.redirect("/events");
           });
         }
       })
@@ -125,7 +125,6 @@ app.get("/compose", function(req, res){
   if (req.isAuthenticated()){
     Role.findOne({email: req.user.username}, function(err, foundRole){
       if(foundRole.role === "admin"){
-        console.log("welcome admin");
         Event.find({}, function(err, foundEvents){
           res.render("compose",{events: foundEvents});
         });
@@ -148,7 +147,7 @@ app.post("/compose", function(req, res){
     if(err){
       console.log(err);
     } else {
-      res.redirect("/compose")
+      res.redirect("/compose");
     }
   });
 });

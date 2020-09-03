@@ -1,43 +1,62 @@
-<%- include('partials/header') %>
-<div class="container mt-5">
-  <h1>Register</h1>
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="styles.css">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ </head>
+ <body>
+  <div class="header" id="topheader">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container text-uppercase ml-1">
 
-  <div class="row">
-    <div class="col-sm-8">
-      <div class="card">
-        <div class="card-body">
+<a class="navbar-brand" href="#">Web Page</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
 
-          <!-- Makes POST request to /register route -->
-          <form action="/register" method="POST">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" name="username">
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password">
-            </div>
-            <label for="preference">Admin</label>
-            <input type="checkbox" name="role" value="admin">
-            <button type="submit" class="btn btn-dark">Register</button>
-          </form>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav ml-auto">
+    <li class="nav-item">
+      <a class="nav-link mr-5" href="/">Home <span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link mr-5" href="/login">Login</a>
+    </li>
+    <li class="nav-item active">
+      <a class="nav-link mr-5" href="/register">Register</a>
+    </li>
 
-        </div>
-      </div>
+  </ul>
+</div>
+</div>
+</nav>
+  </div>
+     <form style="margin-top: 8%;" class="container">
+        <h1 class="demo">Register</h1>
+        <small style="color: white; margin-bottom: 2%;">Please fill out this form to create an account</small>
+         <div style="margin-top: 2%" class="form-group">
+           <label for="exampleInputEmail1">Email address</label>
+           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+         </div>
+         <div class="form-group">
+           <label for="exampleInputPassword1">Password</label>
+           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+         </div>
+          <div class="form-check">
+           <input type="checkbox" class="form-check-input" id="exampleCheck1">
+           <label class="form-check-label" for="exampleCheck1">Admin</label>
+         </div>
+         <p style="color: white; margin-top: 1%;">By creating an account you agree to our <a style="color: green" href="#">Terms & Conditions</a></p>
+         <button style="margin-top: 2%;" type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
+         <p style="color: black; margin-top: 4%; text-align: center;">Already have an account?? <a style="color: green;" href="http://127.0.0.1:5500/login.html">SignIn</a></p>
+     </form>
+
     </div>
 
-    <!-- <div class="col-sm-4">
-      <div class="card social-block">
-        <div class="card-body">
-          <a class="btn btn-block" href="/auth/google" role="button">
-            <i class="fab fa-google"></i>
-            Sign Up with Google
-          </a>
-        </div>
-      </div>
-    </div> -->
-
-  </div>
-</div>
-
-<%- include('partials/header') %>
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ </body>
+</html>

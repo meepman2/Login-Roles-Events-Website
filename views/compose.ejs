@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+
+<div>
+  <%=events%>
+</div>
+<div class="jumbotron centered">
+  <form action="/compose" method="post">
+    <input type="text" name="title">
+    <br>
+    <input type="text" name="body">
+    <br>
+    <button type="submit" name="button">Submit</button>
+  </form>
+</div>
+
+<%- include('partials/footer') %>
