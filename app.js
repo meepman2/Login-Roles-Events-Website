@@ -82,9 +82,11 @@ app.get("/register", function(req, res){
   res.render("register");
 });
 
-app.get("/secrets", function(req, res){
+app.get("/events", function(req, res){
   if (req.isAuthenticated()){
-    res.render("secrets")
+    Event.find({}, function(err, foundEvents){
+      res.render("events",{events: foundEvents});
+    });
   } else {
     res.redirect("/login");
   }
@@ -147,6 +149,17 @@ app.post("/compose", function(req, res){
       console.log(err);
     } else {
       res.redirect("/compose")
+    }
+  });
+});
+
+app.post("/delete", function(req, res){
+  const checkedEventId = req.body.checkbox;
+  Event.findOneAndDelete({title: checkedEventId}, function(err){
+    if(err){
+      console.log(err);
+    } else {
+      res.redirect("/compose");
     }
   });
 });
