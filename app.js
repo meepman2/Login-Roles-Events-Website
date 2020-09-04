@@ -37,10 +37,7 @@ const roleSchema = new mongoose.Schema({
   role: String
 });
 
-const eventSchema = new mongoose.Schema({
-  name: String,
-  events: [{title: String, body: String}]
-});
+const eventSchema = new mongoose.Schema({title: String, body: String});
 
 userSchema.plugin(passportLocalMongoose);
 
@@ -84,9 +81,8 @@ app.get("/register", function(req, res){
 
 app.get("/events", function(req, res){
   if (req.isAuthenticated()){
-    Event.find({}, function(err, foundEvent){
-      console.log(foundEvent);
-      res.render("events",{events: foundEvent.events});
+    Event.find({}, function(err, foundEvents){
+      res.render("events",{events: foundEvents});
     });
   } else {
     res.redirect("/login");
@@ -126,15 +122,8 @@ app.get("/compose", function(req, res){
   if (req.isAuthenticated()){
     Role.findOne({email: req.user.username}, function(err, foundRole){
       if(foundRole.role === "admin"){
-        Event.find({}, function(err, foundEvent){
-          if(foundEvent.length === 0){
-            const list = new Event({
-              name: "adminPosts",
-              events:[{title:"Rules", body:"Only Admins can add and delete posts"}]
-            });
-            list.save();
-          }
-          res.render("compose",{events: foundEvent.events});
+        Event.find({}, function(err, foundEvents){
+          res.render("compose",{events: foundEvents});
         });
       } else {
         console.log("fuck off user");
@@ -147,25 +136,18 @@ app.get("/compose", function(req, res){
 });
 
 app.post("/compose", function(req, res){
-  const newPost = {
+  const newEvent = new Event({
     title: req.body.title,
     body: req.body.body
-  };
-  Event.findOne({name: "adminPosts"}, function(err, foundEvents){
+  });
+    newEvent.save(function(err){
     if(err){
       console.log(err);
     } else {
-      foundEvents.events.push(newPost);
-      foundEvents.save(function(err){
-        if(err){
-          console.log(err);
-        } else {
-          res.redirect("/compose");
-        }
-      });
+      res.redirect("/compose");
     }
   });
-});
+  });
 
 app.post("/delete", function(req, res){
   const checkedEventId = req.body.checkbox;
