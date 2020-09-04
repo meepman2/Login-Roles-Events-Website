@@ -46,10 +46,10 @@
 </nav>
     </div>
 
-<div>
+<div class="container" id="abcd" style="margin-top: 5%; border: 5px solid gray; padding: 30px;">
   <% events.forEach(function(post) { %>
-  <h2>  <%= post.title %>  </h2>
-  <p>  <%= post.body %></p>
+  <h2 style="text-transform: uppercase;">  <%= post.title %>  </h2>
+  <p style="margin-bottom: 5%;">  <%= post.body %></p>
   <% }); %>
 </div>
 

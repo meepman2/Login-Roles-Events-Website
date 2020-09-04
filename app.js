@@ -151,7 +151,7 @@ app.post("/compose", function(req, res){
 
 app.post("/delete", function(req, res){
   const checkedEventId = req.body.checkbox;
-  Event.findOneAndDelete({title: checkedEventId}, function(err){
+  Event.findOneAndDelete({_id: checkedEventId}, function(err){
     if(err){
       console.log(err);
     } else {
