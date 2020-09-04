@@ -1,15 +1,57 @@
-<%- include('partials/header') %>
+<!DOCTYPE html>
+<html lang="" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" />
+    <title></title>
+  </head>
+  <body>
 
-<div class="jumbotron text-center">
-  <div class="container">
-    <i class="fas fa-key fa-6x"></i>
-    <h1 class="display-3">You've Discovered My Secret!</h1>
-    <p class="secret-text">Jack Bauer is my hero.</p>
-    <hr>
+    <div class="header" id="topheader">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container text-uppercase ml-1">
 
-    <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
-    <a class="btn btn-dark btn-lg" href="/compose" role="button">Submit a Secret</a>
+  <a class="navbar-brand" href="#">Web Page</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link mr-5" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mr-5" href="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mr-5" href="/register">Register</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link mr-5" href="/events">Events</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link mr-5" href="/logout">LogOut</a>
+      </li>
+
+    </ul>
   </div>
+  </div>
+</nav>
+    </div>
+
+<div>
+  <% events.forEach(function(post) { %>
+  <h2>  <%= post.title %>  </h2>
+  <p>  <%= post.body %></p>
+  <% }); %>
 </div>
 
-<%- include('partials/footer') %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

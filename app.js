@@ -85,6 +85,7 @@ app.get("/register", function(req, res){
 app.get("/events", function(req, res){
   if (req.isAuthenticated()){
     Event.find({}, function(err, foundEvent){
+      console.log(foundEvent);
       res.render("events",{events: foundEvent.events});
     });
   } else {
